@@ -1,0 +1,27 @@
+{
+  "name": "top_weather-app",
+  "version": "1.0.0",
+  "description": "Weather app using Promises",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "glive": "live-server --browser='google chrome' --open='./app/index.html'",
+    "flive": "live-server --browser='firefox' --open='./app/index.html'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ervin001/TOP_Weather-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ervin001/TOP_Weather-App/issues"
+  },
+  "homepage": "https://github.com/Ervin001/TOP_Weather-App#readme",
+  "devDependencies": {
+    "eslint": "^8.34.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
+  }
+}

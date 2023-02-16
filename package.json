@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "glive": "live-server --browser='google chrome' --open='./app/index.html'",
-    "flive": "live-server --browser='firefox' --open='./app/index.html'"
+    "glive": "live-server --browser='google chrome' --open='./src/index.html'",
+    "flive": "live-server --browser='firefox' --open='./src/index.html'"
   },
   "repository": {
     "type": "git",

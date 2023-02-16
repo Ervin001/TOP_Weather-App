@@ -1,0 +1,85 @@
+* {
+  width: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-size: 62.5%;
+}
+
+body {
+  max-width: 160rem;
+  background-color: #0f4c5c;
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 140rem;
+  min-height: 100vh;
+}
+
+.box-item {
+  width: 50rem;
+  height: 30rem;
+  background-color: #edf2f4;
+  border-radius: 8px;
+  padding: 2rem;
+  font-size: 1.5rem;
+  font-family: sans-serif;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-areas:
+    'search search search'
+    ' date temp temp'
+    'location temp temp'
+    '. . .';
+}
+
+.bd {
+  align-self: end;
+  justify-self: center;
+  width: 100%;
+  font-size: 1.6rem;
+  color: #2b2d42;
+}
+
+.search {
+  grid-area: search;
+}
+
+.date {
+  grid-area: date;
+  align-self: end;
+}
+
+.location {
+  grid-area: location;
+  align-self: start;
+}
+
+.temperature {
+  grid-area: temp;
+  align-self: center;
+  justify-self: center;
+  font-size: 4rem;
+  width: 4rem;
+  height: 4rem;
+}
+
+.temperature:hover {
+  cursor: pointer;
+}
+
+input {
+  width: 100%;
+  height: 25%;
+}

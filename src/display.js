@@ -1,0 +1,4 @@
+class DisplayUI {
+  UpdateUI() {}
+  clearInput() {}
+}

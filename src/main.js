@@ -1,26 +1,28 @@
 import { API_KEY } from './config.js';
 
+const searchField = document.querySelector('.search');
+
 const callApi = async function (city) {
   try {
     const data = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
     );
     const cityData = await data.json();
+    console.log(cityData);
     return cityData.coord;
   } catch (err) {
     console.log(err);
   }
 };
 
-const secondApiCall = async function (cordinates, cityName) {
-  try {
-    const [lat, lon] = cordinates;
-    const data = await fetch(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${API_KEY}`
-    );
-
-    console.log(data);
-  } catch (err) {
-    console.log(err);
+searchField.addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    callApi(searchField.value);
   }
-};
+});
+
+function init() {
+  callApi('Dallas');
+}
+
+init();

@@ -1,4 +1,4 @@
-class DisplayUI {
+export default class DisplayUI {
   UpdateUI() {}
   clearInput() {}
 }

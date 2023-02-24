@@ -13,8 +13,8 @@ const callApi = async function (city) {
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${API_KEY}`
     );
     const cityData = await data.json();
-    console.log(cityData);
-    return cityData.coord;
+    logic.weatherData(cityData);
+    logic.logData();
   } catch (err) {
     console.log(err);
   }

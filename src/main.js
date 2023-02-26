@@ -92,12 +92,16 @@ class DisplayUI {
       dataObj;
     const tempEl = document.querySelector('.temp-number');
     const locationEl = document.querySelector('.location');
-
-    // First Word in city to upper case
-    const upperCity = city.charAt(0).toUpperCase() + city.slice(1);
+    // lower all text and then split the space
+    const upperCity = city.toLowerCase().split(' ');
 
     tempEl.textContent = Math.round(temp);
-    locationEl.textContent = upperCity;
+    //
+    locationEl.textContent = upperCity
+      .map((word) => {
+        return word[0].toUpperCase() + word.substring(1);
+      })
+      .join(' ');
     logic.logData();
   }
 

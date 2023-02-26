@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-classes-per-file
 import { API_KEY } from './config.js';
 // import DisplayUI from './display.js';
 // import Logic from './logic.js';
@@ -15,6 +14,7 @@ class Logic {
     temp: undefined,
     tempMax: undefined,
     tempMin: undefined,
+    city: undefined,
   };
 
   celsius = false;
@@ -27,9 +27,9 @@ class Logic {
     try {
       // call api
       const data = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${
-          this.#apiKey
-        }`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${
+          this.celsius === false ? 'imperial' : 'metric'
+        }&appid=${this.#apiKey}`
       );
       // get json object of city
       const cityData = await data.json();
@@ -42,24 +42,36 @@ class Logic {
       this.#weatherData.temp = temp;
       this.#weatherData.tempMax = temp_max;
       this.#weatherData.tempMin = temp_min;
+      this.#weatherData.city = city;
 
-      // eslint-disable-next-line no-use-before-define
-      display.updateInfo(city, this.#weatherData);
+      display.updateInfo(this.#weatherData);
     } catch (err) {
       console.log(err);
     }
   };
 
   toggleFormat() {
-    if (!this.celsius) return;
-
-    // eslint-disable-next-line no-restricted-syntax
-    for (const property in this.#weatherData) {
-      if (property !== 'humidity' && property !== 'pressure') {
-        this.#weatherData[property] = Math.round(
-          ((this.#weatherData[property] - 32) * 5) / 9
-        );
+    // celsius to fahrenheit
+    if (!this.celsius) {
+      for (const property in this.#weatherData) {
+        if (property !== 'humidity' && property !== 'pressure') {
+          // (30°C x 1.8) + 32 = 86°F’
+          this.#weatherData[property] = Math.round(
+            this.#weatherData[property] * 1.8 + 32
+          );
+        }
       }
+      display.changeFormat(this.#weatherData.temp);
+    } else {
+      // fahrenheit to celsius
+      for (const property in this.#weatherData) {
+        if (property !== 'humidity' && property !== 'pressure') {
+          this.#weatherData[property] = Math.round(
+            ((this.#weatherData[property] - 32) * 5) / 9
+          );
+        }
+      }
+      display.changeFormat(this.#weatherData.temp);
     }
   }
 
@@ -68,14 +80,16 @@ class Logic {
       ? (this.celsius = true)
       : (this.celsius = false);
   }
+
   logData() {
     console.log(this.#weatherData);
   }
 }
 
 class DisplayUI {
-  updateInfo(city, dataObj) {
-    const { feelsLike, humidity, pressure, temp, tempMax, tempMin } = dataObj;
+  updateInfo(dataObj) {
+    const { feelsLike, humidity, pressure, temp, tempMax, tempMin, city } =
+      dataObj;
     const tempEl = document.querySelector('.temp-number');
     const locationEl = document.querySelector('.location');
 
@@ -84,16 +98,18 @@ class DisplayUI {
 
     tempEl.textContent = Math.round(temp);
     locationEl.textContent = upperCity;
-    this.changeFormat();
-    logic.toggleFormat();
     logic.logData();
   }
 
-  changeFormat() {
+  changeFormat(newTemp) {
     const tempEl = document.querySelector('.temp-number');
-    tempEl.textContent = Math.round(((+tempEl.textContent - 32) * 5) / 9);
+    const degEl = document.querySelector('.deg');
 
-    console.log(tempEl.textContent);
+    tempEl.textContent = newTemp;
+
+    degEl.textContent === '°F'
+      ? (degEl.textContent = '°C')
+      : (degEl.textContent = '°F');
   }
 }
 
@@ -108,7 +124,11 @@ searchField.addEventListener('keypress', (e) => {
   }
 });
 
-tempEl.addEventListener('click', (e) => {});
+tempEl.addEventListener('click', (e) => {
+  logic.toggleCelsius();
+  logic.toggleFormat();
+  logic.logData();
+});
 
 function init() {
   // logic.getData('new york');

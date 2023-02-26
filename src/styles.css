@@ -70,7 +70,9 @@ body {
   grid-area: temp;
   align-self: center;
   justify-self: center;
-  font-size: 4rem;
+
+  font-weight: 800;
+  font-size: 6rem;
   width: 4rem;
   height: 4rem;
 }

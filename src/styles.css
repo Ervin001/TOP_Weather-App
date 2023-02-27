@@ -38,10 +38,10 @@ body {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
   grid-template-areas:
-    "search search search"
-    " date temp temp"
-    "location temp temp"
-    ". . .";
+    'search search search'
+    ' date temp temp'
+    'location temp temp'
+    '. . .';
 }
 
 .bd {
@@ -59,11 +59,15 @@ body {
 .date {
   grid-area: date;
   align-self: end;
+
+  font-weight: 600;
 }
 
 .location {
   grid-area: location;
   align-self: start;
+
+  font-weight: 600;
 }
 
 .temperature {
@@ -71,10 +75,11 @@ body {
   align-self: center;
   justify-self: center;
 
+  padding-top: 2rem;
   font-weight: 800;
-  font-size: 6rem;
-  width: 4rem;
-  height: 4rem;
+  font-size: 5.5rem;
+  width: 16rem;
+  height: 10rem;
 }
 
 .temperature:hover {

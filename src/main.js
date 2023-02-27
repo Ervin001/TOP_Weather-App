@@ -46,6 +46,7 @@ class Logic {
 
       display.updateInfo(this.#weatherData);
     } catch (err) {
+      alert('Enter a valid city');
       console.log(err);
     }
   };
@@ -88,12 +89,6 @@ class Logic {
 
 class DisplayUI {
   constructor() {
-    this.dateEl = document.querySelector('.date-s');
-    this.tempEl = document.querySelector('.temp-number');
-    this.locationEl = document.querySelector('.location');
-    this.degEl = document.querySelector('.deg');
-    this.timeEl = document.querySelector('.time');
-
     this.date();
     this.startClock();
   }
@@ -123,6 +118,9 @@ class DisplayUI {
   }
 
   changeFormat(newTemp) {
+    const tempEl = document.querySelector('.temp-number');
+    const degEl = document.querySelector('.deg');
+
     tempEl.textContent = newTemp;
 
     degEl.textContent === '°F'
@@ -131,10 +129,10 @@ class DisplayUI {
   }
 
   date() {
+    const dateEl = document.querySelector('.date-s');
     const date = new Date();
-    console.log(dateEl);
 
-    dateEl.textContent = `${this.months[date.getMonth()]} ${date.getDate()},`;
+    dateEl.textContent = `${this.months[date.getMonth()]} ${date.getDate()}, `;
   }
 
   startClock() {
@@ -142,9 +140,10 @@ class DisplayUI {
   }
 
   time() {
-    console.log(this.dateEl);
+    const timeEl = document.querySelector('.time');
+    const amPmEl = document.querySelector('.am-pm');
     const dateT = new Date();
-    const h = dateT.getHours() - 12;
+    const h = dateT.getHours() % 12;
     const m = dateT.getMinutes();
     timeEl.textContent = `${h}:${m}${m <= 12 ? 'am' : 'pm'}`;
   }

@@ -82,11 +82,25 @@ class Logic {
   }
 
   logData() {
-    console.log(this.#weatherData);
+    // console.log(this.#weatherData);
   }
 }
 
 class DisplayUI {
+  constructor() {
+    this.dateEl = document.querySelector('.date-s');
+    this.tempEl = document.querySelector('.temp-number');
+    this.locationEl = document.querySelector('.location');
+    this.degEl = document.querySelector('.deg');
+    this.timeEl = document.querySelector('.time');
+
+    this.date();
+    this.startClock();
+  }
+  // prettier-ignore
+  months = [
+    'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec',
+  ];
   updateInfo(dataObj) {
     const { feelsLike, humidity, pressure, temp, tempMax, tempMin, city } =
       dataObj;
@@ -103,17 +117,36 @@ class DisplayUI {
       })
       .join(' ');
     logic.logData();
+
+    // set date
+    // this.date();
   }
 
   changeFormat(newTemp) {
-    const tempEl = document.querySelector('.temp-number');
-    const degEl = document.querySelector('.deg');
-
     tempEl.textContent = newTemp;
 
     degEl.textContent === '°F'
       ? (degEl.textContent = '°C')
       : (degEl.textContent = '°F');
+  }
+
+  date() {
+    const date = new Date();
+    console.log(dateEl);
+
+    dateEl.textContent = `${this.months[date.getMonth()]} ${date.getDate()},`;
+  }
+
+  startClock() {
+    setInterval(this.time, 1000);
+  }
+
+  time() {
+    console.log(this.dateEl);
+    const dateT = new Date();
+    const h = dateT.getHours() - 12;
+    const m = dateT.getMinutes();
+    timeEl.textContent = `${h}:${m}${m <= 12 ? 'am' : 'pm'}`;
   }
 }
 
